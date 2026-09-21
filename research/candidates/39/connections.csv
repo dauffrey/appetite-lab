@@ -12,8 +12,8 @@ V1A,heater_a,H1,Assumed,ENG39;T70,engineering completion
 V1A,heater_b,H2,Assumed,ENG39;T70,engineering completion
 RP1,a,BINPUT,Assumed,CER,gain stage 1 plate load
 RP1,b,P1,Assumed,CER,gain stage 1 plate load
-RK1,a,K1,Assumed,CER,gain stage 1 cathode; for #36 stage4 P78 master-volume column
-RK1,b,0,Assumed,CER,gain stage 1 cathode; for #36 stage4 P78 master-volume column
+RK1,a,K1,Assumed,CER,Cerberus gain-stage 1 cathode
+RK1,b,0,Assumed,CER,Cerberus gain-stage 1 cathode
 CK1,a,K1,Assumed,CER,gain stage 1 cathode bypass
 CK1,b,0,Assumed,CER,gain stage 1 cathode bypass
 CC1,a,P1,Assumed,CER,gain stage 1 output coupling
@@ -25,8 +25,8 @@ VT_A,heater_a,H1,Assumed,ENG39;T70,engineering completion
 VT_A,heater_b,H2,Assumed,ENG39;T70,engineering completion
 RP2,a,BEXTRA,Assumed,CER,gain stage 2 plate load
 RP2,b,P2,Assumed,CER,gain stage 2 plate load
-RK2,a,K2,Assumed,CER,gain stage 2 cathode; for #36 stage4 P78 master-volume column
-RK2,b,0,Assumed,CER,gain stage 2 cathode; for #36 stage4 P78 master-volume column
+RK2,a,K2,Assumed,CER,Cerberus gain-stage 2 cathode
+RK2,b,0,Assumed,CER,Cerberus gain-stage 2 cathode
 CC2,a,P2,Assumed,CER,gain stage 2 output coupling
 CC2,b,C2,Assumed,CER,gain stage 2 output coupling
 VT_B,plate,P3,Assumed,ENG39;T70,engineering completion
@@ -36,8 +36,8 @@ VT_B,heater_a,H1,Assumed,ENG39;T70,engineering completion
 VT_B,heater_b,H2,Assumed,ENG39;T70,engineering completion
 RP3,a,BEXTRA,Assumed,CER,gain stage 3 plate load
 RP3,b,P3,Assumed,CER,gain stage 3 plate load
-RK3,a,K3,Assumed,CER,gain stage 3 cathode; for #36 stage4 P78 master-volume column
-RK3,b,0,Assumed,CER,gain stage 3 cathode; for #36 stage4 P78 master-volume column
+RK3,a,K3,Assumed,CER,Cerberus gain-stage 3 cathode
+RK3,b,0,Assumed,CER,Cerberus gain-stage 3 cathode
 CC3,a,P3,Assumed,CER,gain stage 3 output coupling
 CC3,b,C3,Assumed,CER,gain stage 3 output coupling
 V2A,plate,P4,Assumed,ENG39;T70,engineering completion
@@ -47,8 +47,8 @@ V2A,heater_a,H1,Assumed,ENG39;T70,engineering completion
 V2A,heater_b,H2,Assumed,ENG39;T70,engineering completion
 RP4,a,BDRIVER,Assumed,CER,gain stage 4 plate load
 RP4,b,P4,Assumed,CER,gain stage 4 plate load
-RK4,a,K4,Assumed,CER,gain stage 4 cathode; for #36 stage4 P78 master-volume column
-RK4,b,0,Assumed,CER,gain stage 4 cathode; for #36 stage4 P78 master-volume column
+RK4,a,K4,Assumed,CER,Cerberus gain-stage 4 cathode
+RK4,b,0,Assumed,CER,Cerberus gain-stage 4 cathode
 R12,a,C1,Assumed,CER,"Cerberus R5, 470k to gain pot"
 R12,b,A12,Assumed,CER,"Cerberus R5, 470k to gain pot"
 CB12,a,C1,Assumed,CER,interstage treble bypass
@@ -109,41 +109,41 @@ V3B,grid,PIG2,Assumed,ENG39;T70,engineering completion
 V3B,cathode,PIK,Assumed,ENG39;T70,engineering completion
 V3B,heater_a,H1,Assumed,ENG39;T70,engineering completion
 V3B,heater_b,H2,Assumed,ENG39;T70,engineering completion
-RPIA,a,BPI,Sourced,T70,PI 82k load / W78 R21
-RPIA,b,PIPA,Sourced,T70,PI 82k load / W78 R21
-RPIB,a,BPI,Sourced,T70,PI 100k load / W78 R22
-RPIB,b,PIPB,Sourced,T70,PI 100k load / W78 R22
-RPIK,a,PIK,Sourced,T70,PI shared 470-ohm cathode / W78 R17
-RPIK,b,PIREF,Sourced,T70,PI shared 470-ohm cathode / W78 R17
-RPIG1,a,PIG1,Sourced,T70,PI grid leak / W78 R16
-RPIG1,b,PIREF,Sourced,T70,PI grid leak / W78 R16
-RPIG2,a,PIG2,Sourced,T70,PI grid leak / W78 R18
-RPIG2,b,PIREF,Sourced,T70,PI grid leak / W78 R18
-RPITAIL,a,PIREF,Sourced,T70,PI tail / W78 R19
-RPITAIL,b,NFB,Sourced,T70,PI tail / W78 R19
-CPIG2,a,PIG2,Sourced,T70,PI reference grid bypass / W78 C11
-CPIG2,b,0,Sourced,T70,PI reference grid bypass / W78 C11
-CPISNUB,a,PIPA,Sourced,T70,PI plate-to-plate capacitor / W78 C13
-CPISNUB,b,PIPB,Sourced,T70,PI plate-to-plate capacitor / W78 C13
-CPA,a,PIPA,Sourced,T70,output coupling / W78 C12
-CPA,b,DRIVEA,Sourced,T70,output coupling / W78 C12
-CPB,a,PIPB,Sourced,T70,output coupling / W78 C14
-CPB,b,DRIVEB,Sourced,T70,output coupling / W78 C14
-RBIASA,a,DRIVEA,Sourced,T70,bias grid leak / W78 R23
-RBIASA,b,BIAS,Sourced,T70,bias grid leak / W78 R23
-RBIASB,a,DRIVEB,Sourced,T70,bias grid leak / W78 R24
-RBIASB,b,BIAS,Sourced,T70,bias grid leak / W78 R24
+RPIA,a,BPI,Sourced,T70,T70 phase-inverter 82k plate load
+RPIA,b,PIPA,Sourced,T70,T70 phase-inverter 82k plate load
+RPIB,a,BPI,Sourced,T70,T70 phase-inverter 100k plate load
+RPIB,b,PIPB,Sourced,T70,T70 phase-inverter 100k plate load
+RPIK,a,PIK,Sourced,T70,T70 phase-inverter shared 470-ohm cathode
+RPIK,b,PIREF,Sourced,T70,T70 phase-inverter shared 470-ohm cathode
+RPIG1,a,PIG1,Sourced,T70,T70 phase-inverter grid leak A
+RPIG1,b,PIREF,Sourced,T70,T70 phase-inverter grid leak A
+RPIG2,a,PIG2,Sourced,T70,T70 phase-inverter grid leak B
+RPIG2,b,PIREF,Sourced,T70,T70 phase-inverter grid leak B
+RPITAIL,a,PIREF,Sourced,T70,T70 phase-inverter tail resistor
+RPITAIL,b,NFB,Sourced,T70,T70 phase-inverter tail resistor
+CPIG2,a,PIG2,Sourced,T70,T70 phase-inverter reference-grid bypass
+CPIG2,b,0,Sourced,T70,T70 phase-inverter reference-grid bypass
+CPISNUB,a,PIPA,Sourced,T70,T70 phase-inverter plate-to-plate capacitor
+CPISNUB,b,PIPB,Sourced,T70,T70 phase-inverter plate-to-plate capacitor
+CPA,a,PIPA,Sourced,T70,T70 phase-inverter output coupling A
+CPA,b,DRIVEA,Sourced,T70,T70 phase-inverter output coupling A
+CPB,a,PIPB,Sourced,T70,T70 phase-inverter output coupling B
+CPB,b,DRIVEB,Sourced,T70,T70 phase-inverter output coupling B
+RBIASA,a,DRIVEA,Sourced,T70,T70 output-valve bias grid-leak A
+RBIASA,b,BIAS,Sourced,T70,T70 output-valve bias grid-leak A
+RBIASB,a,DRIVEB,Sourced,T70,T70 output-valve bias grid-leak B
+RBIASB,b,BIAS,Sourced,T70,T70 output-valve bias grid-leak B
 RNFB,a,SP16,Assumed,T70,feedback resistor; selected source alternative/tap
 RNFB,b,NFB,Assumed,T70,feedback resistor; selected source alternative/tap
 PRESENCE,top,NFB,Sourced,T70,5k presence pot
 PRESENCE,wiper,PRESC,Sourced,T70,5k presence pot
 PRESENCE,bottom,0,Sourced,T70,5k presence pot
-CPRES,a,PRESC,Sourced,T70,presence capacitor / W78 C110
-CPRES,b,0,Sourced,T70,presence capacitor / W78 C110
-ROG0,a,DRIVEA,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
-ROG0,b,OG0,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
-ROS0,a,BSCREEN,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
-ROS0,b,OS0,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+CPRES,a,PRESC,Sourced,T70,T70 presence capacitor
+CPRES,b,0,Sourced,T70,T70 presence capacitor
+ROG0,a,DRIVEA,Sourced,T70,T70 output grid-stopper network
+ROG0,b,OG0,Sourced,T70,T70 output grid-stopper network
+ROS0,a,BSCREEN,Sourced,T70,T70 output-valve screen resistor
+ROS0,b,OS0,Sourced,T70,T70 output-valve screen resistor
 EL1,plate,OTA,Sourced,T70,four output valves
 EL1,grid,OG0,Sourced,T70,four output valves
 EL1,screen,OS0,Sourced,T70,four output valves
@@ -151,10 +151,10 @@ EL1,cathode,0,Sourced,T70,four output valves
 EL1,suppressor,0,Sourced,T70,four output valves
 EL1,heater_a,H1,Sourced,T70,four output valves
 EL1,heater_b,H2,Sourced,T70,four output valves
-ROG1,a,DRIVEA,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
-ROG1,b,OG1,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
-ROS1,a,BSCREEN,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
-ROS1,b,OS1,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+ROG1,a,DRIVEA,Sourced,T70,T70 output grid-stopper network
+ROG1,b,OG1,Sourced,T70,T70 output grid-stopper network
+ROS1,a,BSCREEN,Sourced,T70,T70 output-valve screen resistor
+ROS1,b,OS1,Sourced,T70,T70 output-valve screen resistor
 EL2,plate,OTA,Sourced,T70,four output valves
 EL2,grid,OG1,Sourced,T70,four output valves
 EL2,screen,OS1,Sourced,T70,four output valves
@@ -162,10 +162,10 @@ EL2,cathode,0,Sourced,T70,four output valves
 EL2,suppressor,0,Sourced,T70,four output valves
 EL2,heater_a,H1,Sourced,T70,four output valves
 EL2,heater_b,H2,Sourced,T70,four output valves
-ROG2,a,DRIVEB,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
-ROG2,b,OG2,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
-ROS2,a,BSCREEN,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
-ROS2,b,OS2,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+ROG2,a,DRIVEB,Sourced,T70,T70 output grid-stopper network
+ROG2,b,OG2,Sourced,T70,T70 output grid-stopper network
+ROS2,a,BSCREEN,Sourced,T70,T70 output-valve screen resistor
+ROS2,b,OS2,Sourced,T70,T70 output-valve screen resistor
 EL3,plate,OTB,Sourced,T70,four output valves
 EL3,grid,OG2,Sourced,T70,four output valves
 EL3,screen,OS2,Sourced,T70,four output valves
@@ -173,10 +173,10 @@ EL3,cathode,0,Sourced,T70,four output valves
 EL3,suppressor,0,Sourced,T70,four output valves
 EL3,heater_a,H1,Sourced,T70,four output valves
 EL3,heater_b,H2,Sourced,T70,four output valves
-ROG3,a,DRIVEB,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
-ROG3,b,OG3,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
-ROS3,a,BSCREEN,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
-ROS3,b,OS3,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+ROG3,a,DRIVEB,Sourced,T70,T70 output grid-stopper network
+ROG3,b,OG3,Sourced,T70,T70 output grid-stopper network
+ROS3,a,BSCREEN,Sourced,T70,T70 output-valve screen resistor
+ROS3,b,OS3,Sourced,T70,T70 output-valve screen resistor
 EL4,plate,OTB,Sourced,T70,four output valves
 EL4,grid,OG3,Sourced,T70,four output valves
 EL4,screen,OS3,Sourced,T70,four output valves
