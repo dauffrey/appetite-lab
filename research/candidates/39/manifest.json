@@ -1,0 +1,64 @@
+{
+  "candidate_id": "sir39.caswell-hypothesis.v0.2",
+  "target": "S.I.R. #39",
+  "historically_verified": false,
+  "electrically_validated": false,
+  "simulation_ready": false,
+  "foundation": {
+    "family": "Marshall 1959T / Super Tremolo",
+    "status": "Sourced",
+    "source_ids": [
+      "T70"
+    ],
+    "specimen_match": "Unresolved"
+  },
+  "working_architecture": {
+    "tremolo_function": "removed_or_disabled",
+    "tremolo_valve_resource": "repurposed_into_audio_gain_path",
+    "status": "Assumed",
+    "support": [
+      "CAS",
+      "BLOCK",
+      "CER"
+    ],
+    "note": "Exact original valve-section allocation, switch state and component values remain unresolved."
+  },
+  "candidate_signal_path": [
+    "input",
+    "V1A",
+    "gain",
+    "repurposed_stage_A",
+    "repurposed_stage_B",
+    "tone_driver_gain_stage",
+    "cathode_follower",
+    "tone_stack",
+    "master",
+    "long_tail_phase_inverter",
+    "4x_EL34",
+    "output_transformer",
+    "speaker_load"
+  ],
+  "known_alternatives": [
+    {
+      "item": "treble capacitor",
+      "candidates": [
+        "250 pF",
+        "500 pF"
+      ],
+      "status": "Unresolved"
+    },
+    {
+      "item": "tone-driver cathode bypass",
+      "candidates": [
+        "omitted",
+        "0.68 uF"
+      ],
+      "status": "Unresolved"
+    },
+    {
+      "item": "repurposed valve section allocation",
+      "status": "Unresolved"
+    }
+  ],
+  "next_gate": "full component-and-connection ledger with independent stock transcription"
+}
