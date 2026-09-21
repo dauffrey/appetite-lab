@@ -12,6 +12,22 @@ EXPECTED = {
     "39": {"elements": 114, "connections": 292, "nodes": 75},
 }
 
+# Sources tied to one reconstruction must not silently cross into the other.
+CANDIDATE_PRIVATE_SOURCES = {
+    "36": {"ENG36", "DUKE", "RT", "L70"},
+    "39": {"ENG39", "CER", "CAS", "BLOCK", "TCFORUM", "T70"},
+}
+NON_EVIDENTIARY_SOURCE_STATUSES = {"assumption-only", "discovery-lead-only"}
+SOURCE_LOCATOR_ALIASES = {
+    "T70": "T70",
+    "L70": "L70",
+    "P78": "P78",
+    "W78": "W78",
+    "Cerberus": "CER",
+    "ENG36": "ENG36",
+    "ENG39": "ENG39",
+}
+
 
 def load_json(path: Path):
     with path.open(encoding="utf-8") as f:
@@ -25,6 +41,40 @@ def load_csv(path: Path):
 
 def source_ids(raw: str):
     return [x.strip() for x in raw.split(";") if x.strip()]
+
+
+def validate_source_boundary(candidate: str, ids: list[str], context: str) -> None:
+    other = "39" if candidate == "36" else "36"
+    forbidden = CANDIDATE_PRIVATE_SOURCES[other]
+    crossed = sorted(set(ids) & forbidden)
+    assert not crossed, (
+        f"{context}: candidate #{candidate} references private source(s) "
+        f"belonging to #{other}: {crossed}"
+    )
+
+
+def validate_sourced_claim(ids: list[str], sources: dict, context: str) -> None:
+    assert ids, f"{context}: Sourced claim requires source_ids"
+    admissible = [
+        sid for sid in ids
+        if sources[sid].get("status") not in NON_EVIDENTIARY_SOURCE_STATUSES
+    ]
+    assert admissible, (
+        f"{context}: Sourced claim relies only on non-evidentiary source classes: {ids}"
+    )
+
+
+def validate_locator(locator: str, ids: list[str], candidate: str, context: str) -> None:
+    other_marker = "#39" if candidate == "36" else "#36"
+    assert other_marker not in locator, (
+        f"{context}: source_locator contains cross-candidate marker {other_marker}"
+    )
+    for token, sid in SOURCE_LOCATOR_ALIASES.items():
+        if token in locator:
+            assert sid in ids, (
+                f"{context}: source_locator mentions {token!r} but source_ids "
+                f"does not contain {sid}"
+            )
 
 
 def validate_ledger(candidate: str, sources: dict) -> tuple[int, int]:
@@ -52,10 +102,13 @@ def validate_ledger(candidate: str, sources: dict) -> tuple[int, int]:
         assert isinstance(pins, dict) and pins, f"#{candidate} {eid}: pins must be a non-empty object"
         elements[eid] = pins
         row_sources = source_ids(row["source_ids"])
-        if row["value_status"] == "Sourced" or row["connection_status"] == "Sourced":
-            assert row_sources, f"#{candidate} {eid}: Sourced element field requires source_ids"
         for sid in row_sources:
             assert sid in sources, f"#{candidate} {eid}: unknown source {sid}"
+        context = f"#{candidate} {eid}"
+        validate_source_boundary(candidate, row_sources, context)
+        validate_locator(row["source_locator"], row_sources, candidate, context)
+        if row["value_status"] == "Sourced" or row["connection_status"] == "Sourced":
+            validate_sourced_claim(row_sources, sources, context)
 
     seen_terminals = set()
     nodes = set()
@@ -73,12 +126,13 @@ def validate_ledger(candidate: str, sources: dict) -> tuple[int, int]:
         nodes.add(node)
         assert row["status"] in ALLOWED
         connection_sources = source_ids(row["source_ids"])
-        if row["status"] == "Sourced":
-            assert connection_sources, (
-                f"#{candidate} {eid}.{terminal}: Sourced connection requires source_ids"
-            )
         for sid in connection_sources:
             assert sid in sources, f"#{candidate} {eid}.{terminal}: unknown source {sid}"
+        context = f"#{candidate} {eid}.{terminal}"
+        validate_source_boundary(candidate, connection_sources, context)
+        validate_locator(row["locator"], connection_sources, candidate, context)
+        if row["status"] == "Sourced":
+            validate_sourced_claim(connection_sources, sources, context)
 
     expected_terminals = {
         (eid, terminal) for eid, pins in elements.items() for terminal in pins
@@ -117,10 +171,12 @@ def main() -> int:
         foundation = model["foundation"]
         assert foundation["status"] in ALLOWED
         foundation_sources = foundation.get("source_ids", [])
-        if foundation["status"] == "Sourced":
-            assert foundation_sources, f"{path}: Sourced foundation requires source_ids"
         for sid in foundation_sources:
             assert sid in sources, f"{path}: unknown source {sid}"
+        candidate = "39" if "/39/" in path.as_posix() else "36"
+        validate_source_boundary(candidate, foundation_sources, str(path))
+        if foundation["status"] == "Sourced":
+            validate_sourced_claim(foundation_sources, sources, str(path))
 
         architecture = model["working_architecture"]
         assert architecture["status"] in ALLOWED
