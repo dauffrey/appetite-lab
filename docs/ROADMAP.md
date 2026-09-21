@@ -5,7 +5,7 @@
 - [x] Define provenance vocabulary.
 - [x] Register primary/reference/community sources.
 - [x] Record current architecture hypotheses.
-- [ ] Import full component and connection ledgers.
+- [x] Import full component and connection ledgers.
 - [ ] Add screenshot evidence inventory and hashes.
 
 ## Phase 1 — Stock reference circuits
