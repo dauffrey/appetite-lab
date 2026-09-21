@@ -1,0 +1,62 @@
+{
+  "candidate_id": "sir36.levi-engineering-hypothesis.v0.2",
+  "target": "S.I.R. #36",
+  "historically_verified": false,
+  "electrically_validated": false,
+  "simulation_ready": false,
+  "foundation": {
+    "family": "Marshall 1959 / Super Lead, non-tremolo",
+    "status": "Sourced",
+    "source_ids": [
+      "L70",
+      "P78",
+      "W78"
+    ],
+    "specimen_match": "Unresolved"
+  },
+  "working_architecture": {
+    "extra_gain_stage": "required",
+    "reported_capacitor_changes": "present_but_values_and_locations_unresolved",
+    "status": "Assumed",
+    "support": [
+      "DUKE",
+      "RT"
+    ],
+    "note": "No authenticated Levi component-level drawing has been admitted. Candidate values must not be attributed to Frank Levi."
+  },
+  "candidate_signal_path": [
+    "input",
+    "V1A",
+    "gain",
+    "V1B",
+    "added_gain_stage",
+    "tone_driver_gain_stage",
+    "cathode_follower",
+    "tone_stack",
+    "master",
+    "long_tail_phase_inverter",
+    "4x_EL34",
+    "output_transformer",
+    "speaker_load"
+  ],
+  "known_alternatives": [
+    {
+      "item": "added-stage physical valve/socket implementation",
+      "status": "Unresolved"
+    },
+    {
+      "item": "added-stage insertion point",
+      "status": "Unresolved"
+    },
+    {
+      "item": "coupling/bypass/bright capacitor modifications",
+      "status": "Unresolved"
+    },
+    {
+      "item": "reported Levi corrections",
+      "status": "Unresolved",
+      "note": "Reported by a builder but not published."
+    }
+  ],
+  "next_gate": "independent 1970s stock reference transcription and explicit modification-delta hypotheses"
+}
