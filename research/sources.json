@@ -1,0 +1,67 @@
+{
+  "T70": {
+    "title": "Marshall/Unicord 1959T, drawing 70-11-11, title block JULY 70",
+    "url": "https://www.drtube.com/schematics/marshall/1959tu.gif",
+    "kind": "manufacturer drawing hosted by third party",
+    "status": "reference-stock",
+    "note": "Not proven identical to claimed 1973 #39 specimen."
+  },
+  "L70": {
+    "title": "Marshall/Unicord 1959, drawing 70-6-11, title block JULY 70",
+    "url": "https://www.drtube.com/schematics/marshall/1959u.gif",
+    "kind": "manufacturer drawing hosted by third party",
+    "status": "reference-stock",
+    "note": "Not proven identical to claimed 1977 #36 specimen."
+  },
+  "P78": {
+    "title": "Marshall standard preamp drawing 78331-1",
+    "url": "https://www.drtube.com/schematics/marshall/78331-1.gif",
+    "kind": "manufacturer drawing hosted by third party",
+    "status": "adjacent-period-reference"
+  },
+  "W78": {
+    "title": "Marshall standard 100-watt power amplifier drawing 78331-3",
+    "url": "https://www.drtube.com/schematics/marshall/78331-3.gif",
+    "kind": "manufacturer drawing hosted by third party",
+    "status": "adjacent-period-reference"
+  },
+  "CER": {
+    "title": "Mike Romberg Cerberus preamp, rev 5",
+    "url": "https://github.com/mromberg/cerberus/tree/156c6c2518bc8fe01e2deb19cd6c1de378ee784f",
+    "kind": "community reconstruction",
+    "status": "candidate-only",
+    "note": "Useful for #39 hypothesis values; not authentication of S.I.R. #39."
+  },
+  "CAS": {
+    "title": "Tim Caswell — The De-Stocking of #39",
+    "url": "https://caswellamps.studioelectronics.com/39Mod.html",
+    "kind": "modifier first-person account",
+    "status": "architecture-history"
+  },
+  "BLOCK": {
+    "title": "Tim Caswell — Front Panel & Block Diagram",
+    "url": "https://caswellamps.studioelectronics.com/BlockDiagram.html",
+    "kind": "modifier account",
+    "status": "architecture-history"
+  },
+  "TCFORUM": {
+    "title": "Hoffman forum — posts signed timcas, January 2010",
+    "url": "https://el34world.com/Forum/index.php?topic=2467.0",
+    "kind": "first-person forum contribution",
+    "status": "qualified",
+    "note": "Account identity not independently authenticated."
+  },
+  "DUKE": {
+    "title": "dukeamps report of Frank Levi corrections",
+    "url": "https://www.tube-town.de/ttforum/index.php?topic=21075.0",
+    "kind": "builder first-person report",
+    "status": "qualified",
+    "note": "Reported corrections were withheld; supplies no admissible corrected values."
+  },
+  "RT": {
+    "title": "Rig-Talk — SIR #36 discussion, 2024",
+    "url": "https://www.rig-talk.com/forum/threads/anyone-got-the-goods-on-the-sir-36-mod.300827/",
+    "kind": "community discussion",
+    "status": "discovery-lead-only"
+  }
+}
