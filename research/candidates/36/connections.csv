@@ -12,8 +12,8 @@ V1A,heater_a,H1,Assumed,ENG36;L70,engineering completion
 V1A,heater_b,H2,Assumed,ENG36;L70,engineering completion
 RP1,a,BINPUT,Assumed,P78,gain stage 1 plate load
 RP1,b,P1,Assumed,P78,gain stage 1 plate load
-RK1,a,K1,Assumed,P78,gain stage 1 cathode; for #36 stage4 P78 master-volume column
-RK1,b,0,Assumed,P78,gain stage 1 cathode; for #36 stage4 P78 master-volume column
+RK1,a,K1,Assumed,P78,P78 gain-stage cathode network
+RK1,b,0,Assumed,P78,P78 gain-stage cathode network
 CK1,a,K1,Assumed,P78,gain stage 1 cathode bypass
 CK1,b,0,Assumed,P78,gain stage 1 cathode bypass
 CC1,a,P1,Assumed,ENG36,gain stage 1 output coupling
@@ -25,8 +25,8 @@ V1B,heater_a,H1,Assumed,ENG36;L70,engineering completion
 V1B,heater_b,H2,Assumed,ENG36;L70,engineering completion
 RP2,a,BEXTRA,Assumed,ENG36,gain stage 2 plate load
 RP2,b,P2,Assumed,ENG36,gain stage 2 plate load
-RK2,a,K2,Assumed,ENG36,gain stage 2 cathode; for #36 stage4 P78 master-volume column
-RK2,b,0,Assumed,ENG36,gain stage 2 cathode; for #36 stage4 P78 master-volume column
+RK2,a,K2,Assumed,ENG36,ENG36 gain-stage 2 cathode hypothesis
+RK2,b,0,Assumed,ENG36,ENG36 gain-stage 2 cathode hypothesis
 CC2,a,P2,Assumed,ENG36,gain stage 2 output coupling
 CC2,b,C2,Assumed,ENG36,gain stage 2 output coupling
 VX_A,plate,P3,Assumed,ENG36;L70,engineering completion
@@ -36,8 +36,8 @@ VX_A,heater_a,H1,Assumed,ENG36;L70,engineering completion
 VX_A,heater_b,H2,Assumed,ENG36;L70,engineering completion
 RP3,a,BEXTRA,Assumed,ENG36,gain stage 3 plate load
 RP3,b,P3,Assumed,ENG36,gain stage 3 plate load
-RK3,a,K3,Assumed,ENG36,gain stage 3 cathode; for #36 stage4 P78 master-volume column
-RK3,b,0,Assumed,ENG36,gain stage 3 cathode; for #36 stage4 P78 master-volume column
+RK3,a,K3,Assumed,ENG36,ENG36 added-stage cathode hypothesis
+RK3,b,0,Assumed,ENG36,ENG36 added-stage cathode hypothesis
 CK3,a,K3,Assumed,ENG36,gain stage 3 cathode bypass
 CK3,b,0,Assumed,ENG36,gain stage 3 cathode bypass
 CC3,a,P3,Assumed,ENG36,gain stage 3 output coupling
@@ -49,10 +49,10 @@ V2A,heater_a,H1,Assumed,ENG36;L70,engineering completion
 V2A,heater_b,H2,Assumed,ENG36;L70,engineering completion
 RP4,a,BDRIVER,Assumed,P78,gain stage 4 plate load
 RP4,b,P4,Assumed,P78,gain stage 4 plate load
-RK4,a,K4,Assumed,P78,gain stage 4 cathode; for #36 stage4 P78 master-volume column
-RK4,b,0,Assumed,P78,gain stage 4 cathode; for #36 stage4 P78 master-volume column
-R12,a,C1,Assumed,ENG36,"Cerberus R5, 470k to gain pot"
-R12,b,A12,Assumed,ENG36,"Cerberus R5, 470k to gain pot"
+RK4,a,K4,Assumed,P78,P78 gain-stage cathode network
+RK4,b,0,Assumed,P78,P78 gain-stage cathode network
+R12,a,C1,Assumed,ENG36,"ENG36 interstage 470k arm"
+R12,b,A12,Assumed,ENG36,"ENG36 interstage 470k arm"
 CB12,a,C1,Assumed,ENG36,interstage treble bypass
 CB12,b,A12,Assumed,ENG36,interstage treble bypass
 GAIN,top,A12,Assumed,ENG36,engineering completion
