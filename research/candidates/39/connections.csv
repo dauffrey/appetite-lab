@@ -1,0 +1,293 @@
+element,terminal,node,status,source_ids,locator
+J1,tip,IN,Assumed,ENG39,engineering completion
+J1,sleeve,0,Assumed,ENG39,engineering completion
+RIN,a,IN,Assumed,T70,input grid-leak network
+RIN,b,0,Assumed,T70,input grid-leak network
+RSTOP,a,IN,Assumed,CER,input 33k in Cerberus
+RSTOP,b,G1,Assumed,CER,input 33k in Cerberus
+V1A,plate,P1,Assumed,ENG39;T70,engineering completion
+V1A,grid,G1,Assumed,ENG39;T70,engineering completion
+V1A,cathode,K1,Assumed,ENG39;T70,engineering completion
+V1A,heater_a,H1,Assumed,ENG39;T70,engineering completion
+V1A,heater_b,H2,Assumed,ENG39;T70,engineering completion
+RP1,a,BINPUT,Assumed,CER,gain stage 1 plate load
+RP1,b,P1,Assumed,CER,gain stage 1 plate load
+RK1,a,K1,Assumed,CER,gain stage 1 cathode; for #36 stage4 P78 master-volume column
+RK1,b,0,Assumed,CER,gain stage 1 cathode; for #36 stage4 P78 master-volume column
+CK1,a,K1,Assumed,CER,gain stage 1 cathode bypass
+CK1,b,0,Assumed,CER,gain stage 1 cathode bypass
+CC1,a,P1,Assumed,CER,gain stage 1 output coupling
+CC1,b,C1,Assumed,CER,gain stage 1 output coupling
+VT_A,plate,P2,Assumed,ENG39;T70,engineering completion
+VT_A,grid,G2,Assumed,ENG39;T70,engineering completion
+VT_A,cathode,K2,Assumed,ENG39;T70,engineering completion
+VT_A,heater_a,H1,Assumed,ENG39;T70,engineering completion
+VT_A,heater_b,H2,Assumed,ENG39;T70,engineering completion
+RP2,a,BEXTRA,Assumed,CER,gain stage 2 plate load
+RP2,b,P2,Assumed,CER,gain stage 2 plate load
+RK2,a,K2,Assumed,CER,gain stage 2 cathode; for #36 stage4 P78 master-volume column
+RK2,b,0,Assumed,CER,gain stage 2 cathode; for #36 stage4 P78 master-volume column
+CC2,a,P2,Assumed,CER,gain stage 2 output coupling
+CC2,b,C2,Assumed,CER,gain stage 2 output coupling
+VT_B,plate,P3,Assumed,ENG39;T70,engineering completion
+VT_B,grid,G3,Assumed,ENG39;T70,engineering completion
+VT_B,cathode,K3,Assumed,ENG39;T70,engineering completion
+VT_B,heater_a,H1,Assumed,ENG39;T70,engineering completion
+VT_B,heater_b,H2,Assumed,ENG39;T70,engineering completion
+RP3,a,BEXTRA,Assumed,CER,gain stage 3 plate load
+RP3,b,P3,Assumed,CER,gain stage 3 plate load
+RK3,a,K3,Assumed,CER,gain stage 3 cathode; for #36 stage4 P78 master-volume column
+RK3,b,0,Assumed,CER,gain stage 3 cathode; for #36 stage4 P78 master-volume column
+CC3,a,P3,Assumed,CER,gain stage 3 output coupling
+CC3,b,C3,Assumed,CER,gain stage 3 output coupling
+V2A,plate,P4,Assumed,ENG39;T70,engineering completion
+V2A,grid,G4,Assumed,ENG39;T70,engineering completion
+V2A,cathode,K4,Assumed,ENG39;T70,engineering completion
+V2A,heater_a,H1,Assumed,ENG39;T70,engineering completion
+V2A,heater_b,H2,Assumed,ENG39;T70,engineering completion
+RP4,a,BDRIVER,Assumed,CER,gain stage 4 plate load
+RP4,b,P4,Assumed,CER,gain stage 4 plate load
+RK4,a,K4,Assumed,CER,gain stage 4 cathode; for #36 stage4 P78 master-volume column
+RK4,b,0,Assumed,CER,gain stage 4 cathode; for #36 stage4 P78 master-volume column
+R12,a,C1,Assumed,CER,"Cerberus R5, 470k to gain pot"
+R12,b,A12,Assumed,CER,"Cerberus R5, 470k to gain pot"
+CB12,a,C1,Assumed,CER,interstage treble bypass
+CB12,b,A12,Assumed,CER,interstage treble bypass
+GAIN,top,A12,Assumed,ENG39,engineering completion
+GAIN,wiper,G2,Assumed,ENG39,engineering completion
+GAIN,bottom,0,Assumed,ENG39,engineering completion
+CGAIN,a,A12,Assumed,CER,gain pot top-to-wiper bypass
+CGAIN,b,G2,Assumed,CER,gain pot top-to-wiper bypass
+R23,a,C2,Assumed,CER,post-second-stage series arm
+R23,b,G3,Assumed,CER,post-second-stage series arm
+RG3,a,G3,Assumed,CER,post-second-stage shunt arm
+RG3,b,0,Assumed,CER,post-second-stage shunt arm
+CB23,a,C2,Assumed,CER,post-second-stage bypass
+CB23,b,G3,Assumed,CER,post-second-stage bypass
+R34,a,C3,Assumed,CER,post-third-stage series arm
+R34,b,G4,Assumed,CER,post-third-stage series arm
+RG4,a,G4,Assumed,CER,post-third-stage shunt arm
+RG4,b,0,Assumed,CER,post-third-stage shunt arm
+CB34,a,C3,Assumed,CER,post-third-stage bypass
+CB34,b,G4,Assumed,CER,post-third-stage bypass
+V2B,plate,BDRIVER,Assumed,ENG39;T70,engineering completion
+V2B,grid,P4,Assumed,ENG39;T70,engineering completion
+V2B,cathode,CF,Assumed,ENG39;T70,engineering completion
+V2B,heater_a,H1,Assumed,ENG39;T70,engineering completion
+V2B,heater_b,H2,Assumed,ENG39;T70,engineering completion
+RCF,a,CF,Assumed,T70,tone driver cathode follower
+RCF,b,0,Assumed,T70,tone driver cathode follower
+RSLOPE,a,CF,Assumed,T70,tone slope resistor
+RSLOPE,b,TS,Assumed,T70,tone slope resistor
+CTREB,a,CF,Assumed,T70,tone treble capacitor
+CTREB,b,TT,Assumed,T70,tone treble capacitor
+CBASS,a,TS,Assumed,T70,tone bass capacitor
+CBASS,b,TB,Assumed,T70,tone bass capacitor
+CMID,a,TS,Assumed,T70,tone middle capacitor
+CMID,b,TM,Assumed,T70,tone middle capacitor
+BASS,top,TB,Assumed,T70,bass pot; top/wiper tied in candidate
+BASS,wiper,TB,Assumed,T70,bass pot; top/wiper tied in candidate
+BASS,bottom,TM,Assumed,T70,bass pot; top/wiper tied in candidate
+MID,top,TM,Assumed,T70,middle pot; top/wiper tied
+MID,wiper,TM,Assumed,T70,middle pot; top/wiper tied
+MID,bottom,0,Assumed,T70,middle pot; top/wiper tied
+TREBLE,top,TT,Assumed,T70,treble potentiometer
+TREBLE,wiper,TONE,Assumed,T70,treble potentiometer
+TREBLE,bottom,TB,Assumed,T70,treble potentiometer
+MASTER,top,TONE,Assumed,CER,pre-phase-inverter master
+MASTER,wiper,MASTEROUT,Assumed,CER,pre-phase-inverter master
+MASTER,bottom,0,Assumed,CER,pre-phase-inverter master
+CPI,a,MASTEROUT,Assumed,T70,phase-inverter input capacitor
+CPI,b,PIG1,Assumed,T70,phase-inverter input capacitor
+V3A,plate,PIPA,Assumed,ENG39;T70,engineering completion
+V3A,grid,PIG1,Assumed,ENG39;T70,engineering completion
+V3A,cathode,PIK,Assumed,ENG39;T70,engineering completion
+V3A,heater_a,H1,Assumed,ENG39;T70,engineering completion
+V3A,heater_b,H2,Assumed,ENG39;T70,engineering completion
+V3B,plate,PIPB,Assumed,ENG39;T70,engineering completion
+V3B,grid,PIG2,Assumed,ENG39;T70,engineering completion
+V3B,cathode,PIK,Assumed,ENG39;T70,engineering completion
+V3B,heater_a,H1,Assumed,ENG39;T70,engineering completion
+V3B,heater_b,H2,Assumed,ENG39;T70,engineering completion
+RPIA,a,BPI,Sourced,T70,PI 82k load / W78 R21
+RPIA,b,PIPA,Sourced,T70,PI 82k load / W78 R21
+RPIB,a,BPI,Sourced,T70,PI 100k load / W78 R22
+RPIB,b,PIPB,Sourced,T70,PI 100k load / W78 R22
+RPIK,a,PIK,Sourced,T70,PI shared 470-ohm cathode / W78 R17
+RPIK,b,PIREF,Sourced,T70,PI shared 470-ohm cathode / W78 R17
+RPIG1,a,PIG1,Sourced,T70,PI grid leak / W78 R16
+RPIG1,b,PIREF,Sourced,T70,PI grid leak / W78 R16
+RPIG2,a,PIG2,Sourced,T70,PI grid leak / W78 R18
+RPIG2,b,PIREF,Sourced,T70,PI grid leak / W78 R18
+RPITAIL,a,PIREF,Sourced,T70,PI tail / W78 R19
+RPITAIL,b,NFB,Sourced,T70,PI tail / W78 R19
+CPIG2,a,PIG2,Sourced,T70,PI reference grid bypass / W78 C11
+CPIG2,b,0,Sourced,T70,PI reference grid bypass / W78 C11
+CPISNUB,a,PIPA,Sourced,T70,PI plate-to-plate capacitor / W78 C13
+CPISNUB,b,PIPB,Sourced,T70,PI plate-to-plate capacitor / W78 C13
+CPA,a,PIPA,Sourced,T70,output coupling / W78 C12
+CPA,b,DRIVEA,Sourced,T70,output coupling / W78 C12
+CPB,a,PIPB,Sourced,T70,output coupling / W78 C14
+CPB,b,DRIVEB,Sourced,T70,output coupling / W78 C14
+RBIASA,a,DRIVEA,Sourced,T70,bias grid leak / W78 R23
+RBIASA,b,BIAS,Sourced,T70,bias grid leak / W78 R23
+RBIASB,a,DRIVEB,Sourced,T70,bias grid leak / W78 R24
+RBIASB,b,BIAS,Sourced,T70,bias grid leak / W78 R24
+RNFB,a,SP16,Assumed,T70,feedback resistor; selected source alternative/tap
+RNFB,b,NFB,Assumed,T70,feedback resistor; selected source alternative/tap
+PRESENCE,top,NFB,Sourced,T70,5k presence pot
+PRESENCE,wiper,PRESC,Sourced,T70,5k presence pot
+PRESENCE,bottom,0,Sourced,T70,5k presence pot
+CPRES,a,PRESC,Sourced,T70,presence capacitor / W78 C110
+CPRES,b,0,Sourced,T70,presence capacitor / W78 C110
+ROG0,a,DRIVEA,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
+ROG0,b,OG0,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
+ROS0,a,BSCREEN,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+ROS0,b,OS0,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+EL1,plate,OTA,Sourced,T70,four output valves
+EL1,grid,OG0,Sourced,T70,four output valves
+EL1,screen,OS0,Sourced,T70,four output valves
+EL1,cathode,0,Sourced,T70,four output valves
+EL1,suppressor,0,Sourced,T70,four output valves
+EL1,heater_a,H1,Sourced,T70,four output valves
+EL1,heater_b,H2,Sourced,T70,four output valves
+ROG1,a,DRIVEA,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
+ROG1,b,OG1,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
+ROS1,a,BSCREEN,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+ROS1,b,OS1,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+EL2,plate,OTA,Sourced,T70,four output valves
+EL2,grid,OG1,Sourced,T70,four output valves
+EL2,screen,OS1,Sourced,T70,four output valves
+EL2,cathode,0,Sourced,T70,four output valves
+EL2,suppressor,0,Sourced,T70,four output valves
+EL2,heater_a,H1,Sourced,T70,four output valves
+EL2,heater_b,H2,Sourced,T70,four output valves
+ROG2,a,DRIVEB,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
+ROG2,b,OG2,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
+ROS2,a,BSCREEN,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+ROS2,b,OS2,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+EL3,plate,OTB,Sourced,T70,four output valves
+EL3,grid,OG2,Sourced,T70,four output valves
+EL3,screen,OS2,Sourced,T70,four output valves
+EL3,cathode,0,Sourced,T70,four output valves
+EL3,suppressor,0,Sourced,T70,four output valves
+EL3,heater_a,H1,Sourced,T70,four output valves
+EL3,heater_b,H2,Sourced,T70,four output valves
+ROG3,a,DRIVEB,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
+ROG3,b,OG3,Sourced,T70,output grid stopper / W78 R107–R110 lead variant
+ROS3,a,BSCREEN,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+ROS3,b,OS3,Sourced,T70,screen resistor; W78 USA 1k variant chosen with EL34 as engineering protection choice
+EL4,plate,OTB,Sourced,T70,four output valves
+EL4,grid,OG3,Sourced,T70,four output valves
+EL4,screen,OS3,Sourced,T70,four output valves
+EL4,cathode,0,Sourced,T70,four output valves
+EL4,suppressor,0,Sourced,T70,four output valves
+EL4,heater_a,H1,Sourced,T70,four output valves
+EL4,heater_b,H2,Sourced,T70,four output valves
+OT,primary_a,OTA,Assumed,ENG39,engineering completion
+OT,primary_ct,BMAIN,Assumed,ENG39,engineering completion
+OT,primary_b,OTB,Assumed,ENG39,engineering completion
+OT,secondary_common,0,Assumed,ENG39,engineering completion
+OT,secondary_4,SP4,Assumed,ENG39,engineering completion
+OT,secondary_8,SP8,Assumed,ENG39,engineering completion
+OT,secondary_16,SP16,Assumed,ENG39,engineering completion
+OUTPUT_SELECT,common,SPEAKER,Assumed,ENG39,engineering completion
+OUTPUT_SELECT,throw4,SP4,Assumed,ENG39,engineering completion
+OUTPUT_SELECT,throw8,SP8,Assumed,ENG39,engineering completion
+OUTPUT_SELECT,throw16,SP16,Assumed,ENG39,engineering completion
+JOUT,tip,SPEAKER,Assumed,ENG39,engineering completion
+JOUT,sleeve,0,Assumed,ENG39,engineering completion
+LOAD,a,SPEAKER,Assumed,ENG39,engineering completion
+LOAD,b,0,Assumed,ENG39,engineering completion
+MAINS,positive,LIVE,Assumed,ENG39,engineering completion
+MAINS,negative,NEUTRAL,Assumed,ENG39,engineering completion
+FMAINS,a,LIVE,Assumed,ENG39,engineering completion
+FMAINS,b,FUSED,Assumed,ENG39,engineering completion
+POWER,common,FUSED,Assumed,ENG39,engineering completion
+POWER,on,SWLIVE,Assumed,ENG39,engineering completion
+PT,primary_a,SWLIVE,Assumed,ENG39,engineering completion
+PT,primary_b,NEUTRAL,Assumed,ENG39,engineering completion
+PT,ht_a,HTA,Assumed,ENG39,engineering completion
+PT,ht_ct,HTCT,Assumed,ENG39,engineering completion
+PT,ht_b,HTB,Assumed,ENG39,engineering completion
+PT,bias,BIASAC,Assumed,ENG39,engineering completion
+PT,bias_return,0,Assumed,ENG39,engineering completion
+PT,heater_a,H1,Assumed,ENG39,engineering completion
+PT,heater_b,H2,Assumed,ENG39,engineering completion
+STANDBY_HTA,common,HTA,Assumed,ENG39,engineering completion
+STANDBY_HTA,on,AC1,Assumed,ENG39,engineering completion
+STANDBY_HTB,common,HTB,Assumed,ENG39,engineering completion
+STANDBY_HTB,on,AC2,Assumed,ENG39,engineering completion
+D1,anode,AC1,Assumed,ENG39,engineering completion
+D1,cathode,RECT,Assumed,ENG39,engineering completion
+D2,anode,AC2,Assumed,ENG39,engineering completion
+D2,cathode,RECT,Assumed,ENG39,engineering completion
+D3,anode,0,Assumed,ENG39,engineering completion
+D3,cathode,AC1,Assumed,ENG39,engineering completion
+D4,anode,0,Assumed,ENG39,engineering completion
+D4,cathode,AC2,Assumed,ENG39,engineering completion
+FHT,a,RECT,Assumed,ENG39,engineering completion
+FHT,b,BMAIN,Assumed,ENG39,engineering completion
+CRES1,a,BMAIN,Assumed,ENG39,engineering completion
+CRES1,b,HTCT,Assumed,ENG39,engineering completion
+CRES2,a,HTCT,Assumed,ENG39,engineering completion
+CRES2,b,0,Assumed,ENG39,engineering completion
+RBAL1,a,BMAIN,Assumed,ENG39,engineering completion
+RBAL1,b,HTCT,Assumed,ENG39,engineering completion
+RBAL2,a,HTCT,Assumed,ENG39,engineering completion
+RBAL2,b,0,Assumed,ENG39,engineering completion
+CHOKE,a,BMAIN,Assumed,ENG39;W78,engineering completion
+CHOKE,b,BSCREEN,Assumed,ENG39;W78,engineering completion
+CSCR1,a,BSCREEN,Assumed,ENG39,engineering completion
+CSCR1,b,SCMID,Assumed,ENG39,engineering completion
+CSCR2,a,SCMID,Assumed,ENG39,engineering completion
+CSCR2,b,0,Assumed,ENG39,engineering completion
+RSCRBAL1,a,BSCREEN,Assumed,ENG39,engineering completion
+RSCRBAL1,b,SCMID,Assumed,ENG39,engineering completion
+RSCRBAL2,a,SCMID,Assumed,ENG39,engineering completion
+RSCRBAL2,b,0,Assumed,ENG39,engineering completion
+RDPI,a,BSCREEN,Assumed,ENG39,engineering completion
+RDPI,b,BPI,Assumed,ENG39,engineering completion
+CBPI,a,BPI,Assumed,ENG39,engineering completion
+CBPI,b,0,Assumed,ENG39,engineering completion
+RDDRIVER,a,BPI,Assumed,ENG39,engineering completion
+RDDRIVER,b,BDRIVER,Assumed,ENG39,engineering completion
+CSDRIVER,a,BDRIVER,Assumed,ENG39,engineering completion
+CSDRIVER,b,0,Assumed,ENG39,engineering completion
+RDINPUT,a,BDRIVER,Assumed,ENG39,engineering completion
+RDINPUT,b,BINPUT,Assumed,ENG39,engineering completion
+CSINPUT,a,BINPUT,Assumed,ENG39,engineering completion
+CSINPUT,b,0,Assumed,ENG39,engineering completion
+RDEXTRA,a,BDRIVER,Assumed,ENG39,engineering completion
+RDEXTRA,b,BEXTRA,Assumed,ENG39,engineering completion
+CSEXTRA,a,BEXTRA,Assumed,ENG39,engineering completion
+CSEXTRA,b,0,Assumed,ENG39,engineering completion
+RBIASFEED,a,BIASAC,Assumed,ENG39,engineering completion
+RBIASFEED,b,BDIODE,Assumed,ENG39,engineering completion
+DBIAS,anode,BNEG,Assumed,ENG39,engineering completion
+DBIAS,cathode,BDIODE,Assumed,ENG39,engineering completion
+CBIAS1,a,0,Assumed,ENG39,engineering completion
+CBIAS1,b,BNEG,Assumed,ENG39,engineering completion
+RBIASFILT,a,BNEG,Assumed,ENG39,engineering completion
+RBIASFILT,b,BIAS,Assumed,ENG39,engineering completion
+CBIAS2,a,0,Assumed,ENG39,engineering completion
+CBIAS2,b,BIAS,Assumed,ENG39,engineering completion
+RBIASSET,a,BIAS,Assumed,ENG39,engineering completion
+RBIASSET,b,BADJ,Assumed,ENG39,engineering completion
+BIAS_ADJ,top,BADJ,Assumed,ENG39,engineering completion
+BIAS_ADJ,wiper,BADJ,Assumed,ENG39,engineering completion
+BIAS_ADJ,bottom,0,Assumed,ENG39,engineering completion
+RH1,a,H1,Assumed,ENG39,engineering completion
+RH1,b,0,Assumed,ENG39,engineering completion
+RH2,a,H2,Assumed,ENG39,engineering completion
+RH2,b,0,Assumed,ENG39,engineering completion
+LAMP,a,H1,Assumed,ENG39,engineering completion
+LAMP,b,H2,Assumed,ENG39,engineering completion
+CHASSIS,a,PE,Assumed,ENG39,engineering completion
+CHASSIS,b,0,Assumed,ENG39,engineering completion
+EARTH,earth,PE,Assumed,ENG39,engineering completion
+SPARE,plate,NC_SPARE_P,Assumed,ENG39,engineering completion
+SPARE,grid,0,Assumed,ENG39,engineering completion
+SPARE,cathode,0,Assumed,ENG39,engineering completion
+SPARE,heater_a,H1,Assumed,ENG39,engineering completion
+SPARE,heater_b,H2,Assumed,ENG39,engineering completion
