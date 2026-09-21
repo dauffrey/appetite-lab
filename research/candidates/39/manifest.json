@@ -51,7 +51,15 @@
       "selection_source_ids": [
         "T70"
       ],
-      "note": "v0.2 instantiates the 500 pF T70 reference value; historical choice remains unresolved."
+      "note": "v0.2 instantiates the 500 pF T70 reference value; historical choice remains unresolved.",
+      "model_bindings": [
+        {
+          "kind": "element_value",
+          "element": "CTREB",
+          "expected": 5e-10,
+          "unit": "F"
+        }
+      ]
     },
     {
       "item": "tone-driver cathode bypass",
@@ -65,7 +73,13 @@
       "selection_source_ids": [
         "ENG39"
       ],
-      "note": "v0.2 omits this bypass as an explicit modelling choice; historical presence remains unresolved."
+      "note": "v0.2 omits this bypass as an explicit modelling choice; historical presence remains unresolved.",
+      "model_bindings": [
+        {
+          "kind": "element_absent",
+          "element": "CK4"
+        }
+      ]
     },
     {
       "item": "repurposed valve section allocation",
@@ -74,6 +88,16 @@
       "selection_status": "Assumed",
       "selection_source_ids": [
         "ENG39"
+      ],
+      "model_bindings": [
+        {
+          "kind": "element_exists",
+          "element": "VT_A"
+        },
+        {
+          "kind": "element_exists",
+          "element": "VT_B"
+        }
       ]
     }
   ],
