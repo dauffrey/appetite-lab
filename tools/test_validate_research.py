@@ -30,6 +30,14 @@ class ProvenanceValidationTests(unittest.TestCase):
                 "fingerprint_status": "not-applicable",
             },
         }
+        self.ledger = {
+            "E1": {
+                "id": "E1",
+                "value": "2.0",
+                "unit": "ohm",
+                "pins": '{"a": "N1", "b": "0"}',
+            }
+        }
 
     def base_manifest(self):
         return {
@@ -51,6 +59,24 @@ class ProvenanceValidationTests(unittest.TestCase):
                 "a", "b", "c", "d", "e", "f"
             ],
             "known_alternatives": [],
+        }
+
+    def valid_alt(self):
+        return {
+            "item": "test alternative",
+            "candidates": ["A", "B"],
+            "status": "Unresolved",
+            "selected_in_candidate": "B",
+            "selection_status": "Sourced",
+            "selection_source_ids": ["REF39"],
+            "model_bindings": [
+                {
+                    "kind": "element_value",
+                    "element": "E1",
+                    "expected": 2.0,
+                    "unit": "ohm",
+                }
+            ],
         }
 
     def test_unknown_source_status_is_rejected(self):
@@ -87,7 +113,9 @@ class ProvenanceValidationTests(unittest.TestCase):
             "support": [],
         }
         with self.assertRaises(AssertionError):
-            vr.validate_manifest(model, "39", self.sources, "manifest")
+            vr.validate_manifest(
+                model, "39", self.sources, self.ledger, "manifest"
+            )
 
     def test_architecture_obeys_candidate_scope(self):
         model = self.base_manifest()
@@ -96,32 +124,72 @@ class ProvenanceValidationTests(unittest.TestCase):
             "support": ["ENG36"],
         }
         with self.assertRaises(AssertionError):
-            vr.validate_manifest(model, "39", self.sources, "manifest")
+            vr.validate_manifest(
+                model, "39", self.sources, self.ledger, "manifest"
+            )
 
     def test_selected_alternative_must_be_declared_candidate(self):
-        alt = {
-            "item": "test alternative",
-            "candidates": ["A", "B"],
-            "status": "Unresolved",
-            "selected_in_candidate": "C",
-            "selection_status": "Assumed",
-            "selection_source_ids": ["ENG39"],
-        }
+        alt = self.valid_alt()
+        alt["selected_in_candidate"] = "C"
         with self.assertRaises(AssertionError):
             vr.validate_alternative(
-                alt, "39", self.sources, "alternative"
+                alt, "39", self.sources, self.ledger, "alternative"
+            )
+
+    def test_selection_status_cannot_be_unresolved(self):
+        alt = self.valid_alt()
+        alt["selection_status"] = "Unresolved"
+        with self.assertRaises(AssertionError):
+            vr.validate_alternative(
+                alt, "39", self.sources, self.ledger, "alternative"
+            )
+
+    def test_selected_alternative_requires_model_binding(self):
+        alt = self.valid_alt()
+        alt["model_bindings"] = []
+        with self.assertRaises(AssertionError):
+            vr.validate_alternative(
+                alt, "39", self.sources, self.ledger, "alternative"
+            )
+
+    def test_element_value_binding_detects_drift(self):
+        alt = self.valid_alt()
+        alt["model_bindings"][0]["expected"] = 3.0
+        with self.assertRaises(AssertionError):
+            vr.validate_alternative(
+                alt, "39", self.sources, self.ledger, "alternative"
+            )
+
+    def test_pin_node_binding_detects_drift(self):
+        alt = self.valid_alt()
+        alt["model_bindings"] = [
+            {
+                "kind": "pin_node",
+                "element": "E1",
+                "pin": "a",
+                "node": "WRONG",
+            }
+        ]
+        with self.assertRaises(AssertionError):
+            vr.validate_alternative(
+                alt, "39", self.sources, self.ledger, "alternative"
+            )
+
+    def test_element_absent_binding_detects_presence(self):
+        alt = self.valid_alt()
+        alt["model_bindings"] = [
+            {"kind": "element_absent", "element": "E1"}
+        ]
+        with self.assertRaises(AssertionError):
+            vr.validate_alternative(
+                alt, "39", self.sources, self.ledger, "alternative"
             )
 
     def test_valid_selected_alternative_is_accepted(self):
-        alt = {
-            "item": "test alternative",
-            "candidates": ["A", "B"],
-            "status": "Unresolved",
-            "selected_in_candidate": "B",
-            "selection_status": "Sourced",
-            "selection_source_ids": ["REF39"],
-        }
-        vr.validate_alternative(alt, "39", self.sources, "alternative")
+        alt = self.valid_alt()
+        vr.validate_alternative(
+            alt, "39", self.sources, self.ledger, "alternative"
+        )
 
 
 if __name__ == "__main__":
