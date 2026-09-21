@@ -37,11 +37,11 @@ tools/                      structural validation
 
 ## Current status
 
-**Research baseline only.** Neither #39 nor #36 is historically authenticated, electrically validated, or ready for real-time audio simulation.
+**Research baseline only.** The v0.2 ledgers are now imported in full: **230 circuit elements and 588 terminal connections** across the independent #36 and #39 candidates. Neither candidate is historically authenticated, electrically validated, or ready for real-time audio simulation.
 
 Immediate work:
 
-1. independently transcribe the stock 1959T and 1959 reference circuits;
+1. independently review the imported v0.2 ledgers against stock 1959T and 1959 reference transcriptions;
 2. enumerate candidate modification deltas;
 3. validate DC operating points and feedback polarity;
 4. add reviewed ECC83/EL34/rectifier and transformer models;
