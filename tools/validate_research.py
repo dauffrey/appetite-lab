@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"Sourced", "Assumed", "Unresolved"}
+ALLOWED_SELECTION_STATUSES = {"Sourced", "Assumed"}
 ALLOWED_SOURCE_STATUSES = {
     "reference-stock",
     "adjacent-period-reference",
@@ -136,8 +137,66 @@ def validate_locator(locator: str, ids: list[str], candidate: str, context: str)
             )
 
 
+def parse_ledger_value(raw: str):
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        return raw
+
+
+def validate_model_binding(
+    binding: dict, ledger_by_id: dict[str, dict], context: str
+) -> None:
+    kind = binding.get("kind")
+    element = binding.get("element")
+    assert kind in {"element_exists", "element_absent", "element_value", "pin_node"}, (
+        f"{context}: unknown model binding kind {kind!r}"
+    )
+    assert element, f"{context}: model binding requires element"
+
+    if kind == "element_absent":
+        assert element not in ledger_by_id, (
+            f"{context}: expected element {element!r} to be absent"
+        )
+        return
+
+    assert element in ledger_by_id, (
+        f"{context}: model binding references missing element {element!r}"
+    )
+    row = ledger_by_id[element]
+
+    if kind == "element_exists":
+        return
+
+    if kind == "element_value":
+        expected = binding.get("expected")
+        actual = parse_ledger_value(row["value"])
+        assert actual == expected, (
+            f"{context}: {element} value drift; expected {expected!r}, got {actual!r}"
+        )
+        if "unit" in binding:
+            assert row["unit"] == binding["unit"], (
+                f"{context}: {element} unit drift; expected {binding['unit']!r}, "
+                f"got {row['unit']!r}"
+            )
+        return
+
+    pins = json.loads(row["pins"])
+    pin = binding.get("pin")
+    node = binding.get("node")
+    assert pin in pins, f"{context}: {element} has no pin {pin!r}"
+    assert pins[pin] == node, (
+        f"{context}: {element}.{pin} drift; expected node {node!r}, "
+        f"got {pins[pin]!r}"
+    )
+
+
 def validate_alternative(
-    alt: dict, candidate: str, sources: dict, context: str
+    alt: dict,
+    candidate: str,
+    sources: dict,
+    ledger_by_id: dict[str, dict],
+    context: str,
 ) -> None:
     status = alt["status"]
     assert status in ALLOWED, f"{context}: invalid alternative status {status!r}"
@@ -164,8 +223,9 @@ def validate_alternative(
     if selected is not None:
         selection_status = alt.get("selection_status")
         selection_sources = alt.get("selection_source_ids", [])
-        assert selection_status in ALLOWED, (
-            f"{context}: selected_in_candidate requires a valid selection_status"
+        assert selection_status in ALLOWED_SELECTION_STATUSES, (
+            f"{context}: selected_in_candidate requires selection_status "
+            "Sourced or Assumed"
         )
         ensure_source_ids(selection_sources, sources, context)
         validate_source_boundary(candidate, selection_sources, sources, context)
@@ -173,9 +233,22 @@ def validate_alternative(
             [selection_status], selection_sources, sources, f"{context} selection"
         )
 
+        bindings = alt.get("model_bindings", [])
+        assert isinstance(bindings, list) and bindings, (
+            f"{context}: selected_in_candidate requires non-empty model_bindings"
+        )
+        for index, binding in enumerate(bindings, start=1):
+            validate_model_binding(
+                binding, ledger_by_id, f"{context} binding[{index}]"
+            )
+
 
 def validate_manifest(
-    model: dict, candidate: str, sources: dict, context: str
+    model: dict,
+    candidate: str,
+    sources: dict,
+    ledger_by_id: dict[str, dict],
+    context: str,
 ) -> None:
     assert model["historically_verified"] is False
     assert model["electrically_validated"] is False
@@ -205,7 +278,11 @@ def validate_manifest(
 
     for index, alt in enumerate(model.get("known_alternatives", []), start=1):
         validate_alternative(
-            alt, candidate, sources, f"{context} alternative[{index}] {alt.get('item')!r}"
+            alt,
+            candidate,
+            sources,
+            ledger_by_id,
+            f"{context} alternative[{index}] {alt.get('item')!r}",
         )
 
     assert len(model["candidate_signal_path"]) >= 6
@@ -307,7 +384,13 @@ def main() -> int:
         cid = model["candidate_id"]
         assert cid not in ids, f"duplicate candidate_id: {cid}"
         ids.add(cid)
-        validate_manifest(model, candidate, sources, str(path))
+        ledger_rows = load_csv(
+            ROOT / "research" / "candidates" / candidate / "ledger.csv"
+        )
+        ledger_by_id = {row["id"]: row for row in ledger_rows}
+        validate_manifest(
+            model, candidate, sources, ledger_by_id, str(path)
+        )
 
     totals = [validate_ledger(candidate, sources) for candidate in ("36", "39")]
     elements = sum(x[0] for x in totals)
