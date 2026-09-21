@@ -63,5 +63,23 @@
     "url": "https://www.rig-talk.com/forum/threads/anyone-got-the-goods-on-the-sir-36-mod.300827/",
     "kind": "community discussion",
     "status": "discovery-lead-only"
+  },
+  "USER": {
+    "title": "Dan-supplied screenshot and modification account; Appetite Lab evidence addendum v0.2",
+    "kind": "observed captions and user-reported claims",
+    "status": "user-evidence",
+    "note": "Preserve as user-reported/observed evidence; not independent authentication."
+  },
+  "ENG39": {
+    "title": "Appetite Lab #39 engineering completion, revision 0.2",
+    "kind": "explicit modelling assumption",
+    "status": "assumption-only",
+    "note": "Carries no historical authority."
+  },
+  "ENG36": {
+    "title": "Appetite Lab #36 engineering hypothesis, revision 0.2",
+    "kind": "explicit modelling assumption",
+    "status": "assumption-only",
+    "note": "Carries no historical authority."
   }
 }
