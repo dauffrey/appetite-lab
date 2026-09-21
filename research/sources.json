@@ -1,0 +1,121 @@
+{
+  "T70": {
+    "title": "Marshall/Unicord 1959T, drawing 70-11-11, title block JULY 70",
+    "url": "https://www.drtube.com/schematics/marshall/1959tu.gif",
+    "kind": "manufacturer drawing hosted by third party",
+    "status": "reference-stock",
+    "note": "Not proven identical to claimed 1973 #39 specimen.",
+    "scope": "39",
+    "accessed_at": "2026-09-21",
+    "fingerprint_status": "pending"
+  },
+  "L70": {
+    "title": "Marshall/Unicord 1959, drawing 70-6-11, title block JULY 70",
+    "url": "https://www.drtube.com/schematics/marshall/1959u.gif",
+    "kind": "manufacturer drawing hosted by third party",
+    "status": "reference-stock",
+    "note": "Not proven identical to claimed 1977 #36 specimen.",
+    "scope": "36",
+    "accessed_at": "2026-09-21",
+    "fingerprint_status": "pending"
+  },
+  "P78": {
+    "title": "Marshall standard preamp drawing 78331-1",
+    "url": "https://www.drtube.com/schematics/marshall/78331-1.gif",
+    "kind": "manufacturer drawing hosted by third party",
+    "status": "adjacent-period-reference",
+    "scope": "shared",
+    "accessed_at": "2026-09-21",
+    "fingerprint_status": "pending"
+  },
+  "W78": {
+    "title": "Marshall standard 100-watt power amplifier drawing 78331-3",
+    "url": "https://www.drtube.com/schematics/marshall/78331-3.gif",
+    "kind": "manufacturer drawing hosted by third party",
+    "status": "adjacent-period-reference",
+    "scope": "shared",
+    "accessed_at": "2026-09-21",
+    "fingerprint_status": "pending"
+  },
+  "CER": {
+    "title": "Mike Romberg Cerberus preamp, rev 5",
+    "url": "https://github.com/mromberg/cerberus/tree/156c6c2518bc8fe01e2deb19cd6c1de378ee784f",
+    "kind": "community reconstruction",
+    "status": "candidate-only",
+    "note": "Useful for #39 hypothesis values; not authentication of S.I.R. #39.",
+    "scope": "39",
+    "accessed_at": "2026-09-21",
+    "fingerprint_status": "pending"
+  },
+  "CAS": {
+    "title": "Tim Caswell — The De-Stocking of #39",
+    "url": "https://caswellamps.studioelectronics.com/39Mod.html",
+    "kind": "modifier first-person account",
+    "status": "architecture-history",
+    "scope": "39",
+    "accessed_at": "2026-09-21",
+    "fingerprint_status": "pending"
+  },
+  "BLOCK": {
+    "title": "Tim Caswell — Front Panel & Block Diagram",
+    "url": "https://caswellamps.studioelectronics.com/BlockDiagram.html",
+    "kind": "modifier account",
+    "status": "architecture-history",
+    "scope": "39",
+    "accessed_at": "2026-09-21",
+    "fingerprint_status": "pending"
+  },
+  "TCFORUM": {
+    "title": "Hoffman forum — posts signed timcas, January 2010",
+    "url": "https://el34world.com/Forum/index.php?topic=2467.0",
+    "kind": "first-person forum contribution",
+    "status": "qualified",
+    "note": "Account identity not independently authenticated.",
+    "scope": "39",
+    "accessed_at": "2026-09-21",
+    "fingerprint_status": "pending"
+  },
+  "DUKE": {
+    "title": "dukeamps report of Frank Levi corrections",
+    "url": "https://www.tube-town.de/ttforum/index.php?topic=21075.0",
+    "kind": "builder first-person report",
+    "status": "qualified",
+    "note": "Reported corrections were withheld; supplies no admissible corrected values.",
+    "scope": "36",
+    "accessed_at": "2026-09-21",
+    "fingerprint_status": "pending"
+  },
+  "RT": {
+    "title": "Rig-Talk — SIR #36 discussion, 2024",
+    "url": "https://www.rig-talk.com/forum/threads/anyone-got-the-goods-on-the-sir-36-mod.300827/",
+    "kind": "community discussion",
+    "status": "discovery-lead-only",
+    "scope": "36",
+    "accessed_at": "2026-09-21",
+    "fingerprint_status": "pending"
+  },
+  "USER": {
+    "title": "Dan-supplied screenshot and modification account; Appetite Lab evidence addendum v0.2",
+    "kind": "observed captions and user-reported claims",
+    "status": "user-evidence",
+    "note": "Preserve as user-reported/observed evidence; not independent authentication.",
+    "scope": "shared",
+    "fingerprint_status": "not-applicable"
+  },
+  "ENG39": {
+    "title": "Appetite Lab #39 engineering completion, revision 0.2",
+    "kind": "explicit modelling assumption",
+    "status": "assumption-only",
+    "note": "Carries no historical authority.",
+    "scope": "39",
+    "fingerprint_status": "not-applicable"
+  },
+  "ENG36": {
+    "title": "Appetite Lab #36 engineering hypothesis, revision 0.2",
+    "kind": "explicit modelling assumption",
+    "status": "assumption-only",
+    "note": "Carries no historical authority.",
+    "scope": "36",
+    "fingerprint_status": "not-applicable"
+  }
+}

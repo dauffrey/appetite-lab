@@ -1,0 +1,150 @@
+{
+  "candidate_id": "sir36.levi-engineering-hypothesis.v0.2",
+  "target": "S.I.R. #36",
+  "historically_verified": false,
+  "electrically_validated": false,
+  "simulation_ready": false,
+  "foundation": {
+    "family": "Marshall 1959 / Super Lead, non-tremolo",
+    "status": "Sourced",
+    "source_ids": [
+      "L70",
+      "P78",
+      "W78"
+    ],
+    "specimen_match": "Unresolved"
+  },
+  "working_architecture": {
+    "extra_gain_stage": "required",
+    "reported_capacitor_changes": "present_but_values_and_locations_unresolved",
+    "status": "Assumed",
+    "support": [
+      "DUKE",
+      "RT"
+    ],
+    "note": "No authenticated Levi component-level drawing has been admitted. Candidate values must not be attributed to Frank Levi."
+  },
+  "candidate_signal_path": [
+    "input",
+    "V1A",
+    "gain",
+    "V1B",
+    "added_gain_stage",
+    "tone_driver_gain_stage",
+    "cathode_follower",
+    "tone_stack",
+    "master",
+    "long_tail_phase_inverter",
+    "4x_EL34",
+    "output_transformer",
+    "speaker_load"
+  ],
+  "known_alternatives": [
+    {
+      "item": "added-stage physical valve/socket implementation",
+      "status": "Unresolved",
+      "selected_in_candidate": "abstract VX_A added gain stage; physical valve/socket allocation remains unresolved",
+      "selection_status": "Assumed",
+      "selection_source_ids": [
+        "ENG36"
+      ],
+      "model_bindings": [
+        {
+          "kind": "element_exists",
+          "element": "VX_A"
+        }
+      ],
+      "note": "v0.2 instantiates an abstract added ECC83 gain stage without claiming the historical physical socket/section."
+    },
+    {
+      "item": "added-stage insertion point",
+      "status": "Unresolved",
+      "selected_in_candidate": "after V1B coupling network into VX_A grid node G3",
+      "selection_status": "Assumed",
+      "selection_source_ids": [
+        "ENG36"
+      ],
+      "model_bindings": [
+        {
+          "kind": "pin_node",
+          "element": "R23",
+          "pin": "b",
+          "node": "G3"
+        },
+        {
+          "kind": "pin_node",
+          "element": "VX_A",
+          "pin": "grid",
+          "node": "G3"
+        }
+      ],
+      "note": "v0.2 fixes this insertion point as an engineering hypothesis; the historical Levi insertion point remains unresolved."
+    },
+    {
+      "item": "coupling/bypass/bright capacitor modifications",
+      "status": "Unresolved",
+      "selected_in_candidate": "v0.2 ENG36 preamp capacitor set",
+      "selection_status": "Assumed",
+      "selection_source_ids": [
+        "ENG36"
+      ],
+      "model_bindings": [
+        {
+          "kind": "element_value",
+          "element": "CC1",
+          "expected": 2.2e-8,
+          "unit": "F"
+        },
+        {
+          "kind": "element_value",
+          "element": "CC2",
+          "expected": 2.2e-8,
+          "unit": "F"
+        },
+        {
+          "kind": "element_value",
+          "element": "CC3",
+          "expected": 2.2e-8,
+          "unit": "F"
+        },
+        {
+          "kind": "element_value",
+          "element": "CK3",
+          "expected": 6.8e-7,
+          "unit": "F"
+        },
+        {
+          "kind": "element_value",
+          "element": "CB12",
+          "expected": 4.7e-10,
+          "unit": "F"
+        },
+        {
+          "kind": "element_value",
+          "element": "CGAIN",
+          "expected": 4.7e-10,
+          "unit": "F"
+        },
+        {
+          "kind": "element_value",
+          "element": "CB23",
+          "expected": 4.7e-10,
+          "unit": "F"
+        },
+        {
+          "kind": "element_value",
+          "element": "CB34",
+          "expected": 4.7e-10,
+          "unit": "F"
+        }
+      ],
+      "note": "These are explicit v0.2 modelling choices, not recovered Levi values."
+    },
+    {
+      "item": "reported Levi corrections",
+      "status": "Unresolved",
+      "note": "Reported by a builder but not published."
+    }
+  ],
+  "next_gate": "independent stock 1959 reference transcription and reconciliation against the imported v0.2 ledger"
+}
