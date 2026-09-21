@@ -3,21 +3,35 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"Sourced", "Assumed", "Unresolved"}
+ALLOWED_SOURCE_STATUSES = {
+    "reference-stock",
+    "adjacent-period-reference",
+    "candidate-only",
+    "architecture-history",
+    "qualified",
+    "discovery-lead-only",
+    "user-evidence",
+    "assumption-only",
+}
+EVIDENTIARY_SOURCE_STATUSES = {
+    "reference-stock",
+    "adjacent-period-reference",
+    "candidate-only",
+    "architecture-history",
+    "qualified",
+    "user-evidence",
+}
+ALLOWED_SOURCE_SCOPES = {"shared", "36", "39"}
+ALLOWED_FINGERPRINT_STATES = {"verified", "pending", "not-applicable"}
 EXPECTED = {
     "36": {"elements": 116, "connections": 296, "nodes": 75},
     "39": {"elements": 114, "connections": 292, "nodes": 75},
 }
-
-# Sources tied to one reconstruction must not silently cross into the other.
-CANDIDATE_PRIVATE_SOURCES = {
-    "36": {"ENG36", "DUKE", "RT", "L70"},
-    "39": {"ENG39", "CER", "CAS", "BLOCK", "TCFORUM", "T70"},
-}
-NON_EVIDENTIARY_SOURCE_STATUSES = {"assumption-only", "discovery-lead-only"}
 SOURCE_LOCATOR_ALIASES = {
     "T70": "T70",
     "L70": "L70",
@@ -43,25 +57,70 @@ def source_ids(raw: str):
     return [x.strip() for x in raw.split(";") if x.strip()]
 
 
-def validate_source_boundary(candidate: str, ids: list[str], context: str) -> None:
-    other = "39" if candidate == "36" else "36"
-    forbidden = CANDIDATE_PRIVATE_SOURCES[other]
-    crossed = sorted(set(ids) & forbidden)
+def validate_source_registry(sources: dict) -> None:
+    assert sources, "source registry is empty"
+    for sid, record in sources.items():
+        status = record.get("status")
+        scope = record.get("scope")
+        fingerprint_status = record.get("fingerprint_status")
+        assert status in ALLOWED_SOURCE_STATUSES, (
+            f"{sid}: unknown source status {status!r}; provenance classes are fail-closed"
+        )
+        assert scope in ALLOWED_SOURCE_SCOPES, f"{sid}: invalid source scope {scope!r}"
+        assert fingerprint_status in ALLOWED_FINGERPRINT_STATES, (
+            f"{sid}: invalid fingerprint_status {fingerprint_status!r}"
+        )
+        if record.get("url"):
+            assert record.get("accessed_at"), f"{sid}: URL source requires accessed_at"
+            assert re.fullmatch(r"\d{4}-\d{2}-\d{2}", record["accessed_at"]), (
+                f"{sid}: accessed_at must use YYYY-MM-DD"
+            )
+            assert fingerprint_status in {"verified", "pending"}, (
+                f"{sid}: URL source fingerprint must be verified or explicitly pending"
+            )
+        if fingerprint_status == "verified":
+            fingerprint = record.get("fingerprint", "")
+            assert fingerprint, f"{sid}: verified fingerprint requires fingerprint value"
+
+
+def ensure_source_ids(ids: list[str], sources: dict, context: str) -> None:
+    for sid in ids:
+        assert sid in sources, f"{context}: unknown source {sid}"
+
+
+def validate_source_boundary(
+    candidate: str, ids: list[str], sources: dict, context: str
+) -> None:
+    crossed = sorted(
+        sid
+        for sid in ids
+        if sources[sid].get("scope") not in {"shared", candidate}
+    )
     assert not crossed, (
-        f"{context}: candidate #{candidate} references private source(s) "
-        f"belonging to #{other}: {crossed}"
+        f"{context}: candidate #{candidate} references source(s) outside its scope: {crossed}"
     )
 
 
 def validate_sourced_claim(ids: list[str], sources: dict, context: str) -> None:
     assert ids, f"{context}: Sourced claim requires source_ids"
     admissible = [
-        sid for sid in ids
-        if sources[sid].get("status") not in NON_EVIDENTIARY_SOURCE_STATUSES
+        sid
+        for sid in ids
+        if sources[sid].get("status") in EVIDENTIARY_SOURCE_STATUSES
     ]
     assert admissible, (
-        f"{context}: Sourced claim relies only on non-evidentiary source classes: {ids}"
+        f"{context}: Sourced claim has no evidentiary source class: {ids}"
     )
+
+
+def validate_claim_sources(
+    statuses: list[str] | tuple[str, ...],
+    ids: list[str],
+    sources: dict,
+    context: str,
+) -> None:
+    if "Sourced" in statuses:
+        validate_sourced_claim(ids, sources, context)
 
 
 def validate_locator(locator: str, ids: list[str], candidate: str, context: str) -> None:
@@ -75,6 +134,81 @@ def validate_locator(locator: str, ids: list[str], candidate: str, context: str)
                 f"{context}: source_locator mentions {token!r} but source_ids "
                 f"does not contain {sid}"
             )
+
+
+def validate_alternative(
+    alt: dict, candidate: str, sources: dict, context: str
+) -> None:
+    status = alt["status"]
+    assert status in ALLOWED, f"{context}: invalid alternative status {status!r}"
+
+    alt_sources = alt.get("source_ids", [])
+    ensure_source_ids(alt_sources, sources, context)
+    validate_source_boundary(candidate, alt_sources, sources, context)
+    validate_claim_sources([status], alt_sources, sources, context)
+
+    candidates = alt.get("candidates")
+    selected = alt.get("selected_in_candidate")
+    if candidates is not None:
+        assert isinstance(candidates, list) and candidates, (
+            f"{context}: candidates must be a non-empty list"
+        )
+        assert selected is not None, (
+            f"{context}: alternatives with candidates require selected_in_candidate "
+            "so the instantiated model is explicit"
+        )
+        assert selected in candidates, (
+            f"{context}: selected_in_candidate {selected!r} is not one of {candidates!r}"
+        )
+
+    if selected is not None:
+        selection_status = alt.get("selection_status")
+        selection_sources = alt.get("selection_source_ids", [])
+        assert selection_status in ALLOWED, (
+            f"{context}: selected_in_candidate requires a valid selection_status"
+        )
+        ensure_source_ids(selection_sources, sources, context)
+        validate_source_boundary(candidate, selection_sources, sources, context)
+        validate_claim_sources(
+            [selection_status], selection_sources, sources, f"{context} selection"
+        )
+
+
+def validate_manifest(
+    model: dict, candidate: str, sources: dict, context: str
+) -> None:
+    assert model["historically_verified"] is False
+    assert model["electrically_validated"] is False
+    assert model["simulation_ready"] is False
+
+    foundation = model["foundation"]
+    assert foundation["status"] in ALLOWED
+    assert foundation.get("specimen_match") in ALLOWED
+    foundation_sources = foundation.get("source_ids", [])
+    ensure_source_ids(foundation_sources, sources, context)
+    validate_source_boundary(candidate, foundation_sources, sources, context)
+    validate_claim_sources(
+        [foundation["status"]], foundation_sources, sources, f"{context} foundation"
+    )
+
+    architecture = model["working_architecture"]
+    assert architecture["status"] in ALLOWED
+    architecture_sources = architecture.get("support", [])
+    ensure_source_ids(architecture_sources, sources, context)
+    validate_source_boundary(candidate, architecture_sources, sources, context)
+    validate_claim_sources(
+        [architecture["status"]],
+        architecture_sources,
+        sources,
+        f"{context} working_architecture",
+    )
+
+    for index, alt in enumerate(model.get("known_alternatives", []), start=1):
+        validate_alternative(
+            alt, candidate, sources, f"{context} alternative[{index}] {alt.get('item')!r}"
+        )
+
+    assert len(model["candidate_signal_path"]) >= 6
 
 
 def validate_ledger(candidate: str, sources: dict) -> tuple[int, int]:
@@ -94,30 +228,39 @@ def validate_ledger(candidate: str, sources: dict) -> tuple[int, int]:
     elements = {}
     for row in ledger:
         eid = row["id"]
+        context = f"#{candidate} {eid}"
         assert eid and eid not in elements, f"#{candidate}: duplicate/blank element id {eid!r}"
         assert row["value_status"] in ALLOWED
         assert row["connection_status"] in ALLOWED
         assert row["historical_status"] in ALLOWED
         pins = json.loads(row["pins"])
-        assert isinstance(pins, dict) and pins, f"#{candidate} {eid}: pins must be a non-empty object"
+        assert isinstance(pins, dict) and pins, f"{context}: pins must be a non-empty object"
         elements[eid] = pins
+
         row_sources = source_ids(row["source_ids"])
-        for sid in row_sources:
-            assert sid in sources, f"#{candidate} {eid}: unknown source {sid}"
-        context = f"#{candidate} {eid}"
-        validate_source_boundary(candidate, row_sources, context)
+        ensure_source_ids(row_sources, sources, context)
+        validate_source_boundary(candidate, row_sources, sources, context)
         validate_locator(row["source_locator"], row_sources, candidate, context)
-        if row["value_status"] == "Sourced" or row["connection_status"] == "Sourced":
-            validate_sourced_claim(row_sources, sources, context)
+        validate_claim_sources(
+            [
+                row["value_status"],
+                row["connection_status"],
+                row["historical_status"],
+            ],
+            row_sources,
+            sources,
+            context,
+        )
 
     seen_terminals = set()
     nodes = set()
     for row in connections:
         eid, terminal, node = row["element"], row["terminal"], row["node"]
+        context = f"#{candidate} {eid}.{terminal}"
         assert eid in elements, f"#{candidate}: connection references unknown element {eid}"
         assert terminal in elements[eid], f"#{candidate} {eid}: unknown terminal {terminal}"
         assert elements[eid][terminal] == node, (
-            f"#{candidate} {eid}.{terminal}: ledger node {elements[eid][terminal]!r} "
+            f"{context}: ledger node {elements[eid][terminal]!r} "
             f"!= connection node {node!r}"
         )
         key = (eid, terminal)
@@ -125,14 +268,14 @@ def validate_ledger(candidate: str, sources: dict) -> tuple[int, int]:
         seen_terminals.add(key)
         nodes.add(node)
         assert row["status"] in ALLOWED
+
         connection_sources = source_ids(row["source_ids"])
-        for sid in connection_sources:
-            assert sid in sources, f"#{candidate} {eid}.{terminal}: unknown source {sid}"
-        context = f"#{candidate} {eid}.{terminal}"
-        validate_source_boundary(candidate, connection_sources, context)
+        ensure_source_ids(connection_sources, sources, context)
+        validate_source_boundary(candidate, connection_sources, sources, context)
         validate_locator(row["locator"], connection_sources, candidate, context)
-        if row["status"] == "Sourced":
-            validate_sourced_claim(connection_sources, sources, context)
+        validate_claim_sources(
+            [row["status"]], connection_sources, sources, context
+        )
 
     expected_terminals = {
         (eid, terminal) for eid, pins in elements.items() for terminal in pins
@@ -151,42 +294,20 @@ def validate_ledger(candidate: str, sources: dict) -> tuple[int, int]:
 
 def main() -> int:
     sources = load_json(ROOT / "research" / "sources.json")
-    assert sources, "source registry is empty"
+    validate_source_registry(sources)
 
-    manifests = [
-        ROOT / "research" / "candidates" / "39" / "manifest.json",
-        ROOT / "research" / "candidates" / "36" / "manifest.json",
-    ]
+    manifests = {
+        "39": ROOT / "research" / "candidates" / "39" / "manifest.json",
+        "36": ROOT / "research" / "candidates" / "36" / "manifest.json",
+    }
 
     ids = set()
-    for path in manifests:
+    for candidate, path in manifests.items():
         model = load_json(path)
         cid = model["candidate_id"]
         assert cid not in ids, f"duplicate candidate_id: {cid}"
         ids.add(cid)
-        assert model["historically_verified"] is False
-        assert model["electrically_validated"] is False
-        assert model["simulation_ready"] is False
-
-        foundation = model["foundation"]
-        assert foundation["status"] in ALLOWED
-        foundation_sources = foundation.get("source_ids", [])
-        for sid in foundation_sources:
-            assert sid in sources, f"{path}: unknown source {sid}"
-        candidate = "39" if "/39/" in path.as_posix() else "36"
-        validate_source_boundary(candidate, foundation_sources, str(path))
-        if foundation["status"] == "Sourced":
-            validate_sourced_claim(foundation_sources, sources, str(path))
-
-        architecture = model["working_architecture"]
-        assert architecture["status"] in ALLOWED
-        for sid in architecture.get("support", []):
-            assert sid in sources, f"{path}: unknown support source {sid}"
-
-        for alt in model.get("known_alternatives", []):
-            assert alt["status"] in ALLOWED
-
-        assert len(model["candidate_signal_path"]) >= 6
+        validate_manifest(model, candidate, sources, str(path))
 
     totals = [validate_ledger(candidate, sources) for candidate in ("36", "39")]
     elements = sum(x[0] for x in totals)
