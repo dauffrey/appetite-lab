@@ -60,5 +60,5 @@
       "status": "Unresolved"
     }
   ],
-  "next_gate": "full component-and-connection ledger with independent stock transcription"
+  "next_gate": "independent stock 1959T reference transcription and reconciliation against the imported v0.2 ledger"
 }
