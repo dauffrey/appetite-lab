@@ -51,7 +51,10 @@ def validate_ledger(candidate: str, sources: dict) -> tuple[int, int]:
         pins = json.loads(row["pins"])
         assert isinstance(pins, dict) and pins, f"#{candidate} {eid}: pins must be a non-empty object"
         elements[eid] = pins
-        for sid in source_ids(row["source_ids"]):
+        row_sources = source_ids(row["source_ids"])
+        if row["value_status"] == "Sourced" or row["connection_status"] == "Sourced":
+            assert row_sources, f"#{candidate} {eid}: Sourced element field requires source_ids"
+        for sid in row_sources:
             assert sid in sources, f"#{candidate} {eid}: unknown source {sid}"
 
     seen_terminals = set()
@@ -69,7 +72,12 @@ def validate_ledger(candidate: str, sources: dict) -> tuple[int, int]:
         seen_terminals.add(key)
         nodes.add(node)
         assert row["status"] in ALLOWED
-        for sid in source_ids(row["source_ids"]):
+        connection_sources = source_ids(row["source_ids"])
+        if row["status"] == "Sourced":
+            assert connection_sources, (
+                f"#{candidate} {eid}.{terminal}: Sourced connection requires source_ids"
+            )
+        for sid in connection_sources:
             assert sid in sources, f"#{candidate} {eid}.{terminal}: unknown source {sid}"
 
     expected_terminals = {
@@ -108,7 +116,10 @@ def main() -> int:
 
         foundation = model["foundation"]
         assert foundation["status"] in ALLOWED
-        for sid in foundation.get("source_ids", []):
+        foundation_sources = foundation.get("source_ids", [])
+        if foundation["status"] == "Sourced":
+            assert foundation_sources, f"{path}: Sourced foundation requires source_ids"
+        for sid in foundation_sources:
             assert sid in sources, f"{path}: unknown source {sid}"
 
         architecture = model["working_architecture"]
