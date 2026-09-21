@@ -45,7 +45,13 @@
         "250 pF",
         "500 pF"
       ],
-      "status": "Unresolved"
+      "status": "Unresolved",
+      "selected_in_candidate": "500 pF",
+      "selection_status": "Sourced",
+      "selection_source_ids": [
+        "T70"
+      ],
+      "note": "v0.2 instantiates the 500 pF T70 reference value; historical choice remains unresolved."
     },
     {
       "item": "tone-driver cathode bypass",
@@ -53,11 +59,22 @@
         "omitted",
         "0.68 uF"
       ],
-      "status": "Unresolved"
+      "status": "Unresolved",
+      "selected_in_candidate": "omitted",
+      "selection_status": "Assumed",
+      "selection_source_ids": [
+        "ENG39"
+      ],
+      "note": "v0.2 omits this bypass as an explicit modelling choice; historical presence remains unresolved."
     },
     {
       "item": "repurposed valve section allocation",
-      "status": "Unresolved"
+      "status": "Unresolved",
+      "selected_in_candidate": "abstract VT_A/VT_B repurposed gain stages; physical valve-section allocation unresolved",
+      "selection_status": "Assumed",
+      "selection_source_ids": [
+        "ENG39"
+      ]
     }
   ],
   "next_gate": "independent stock 1959T reference transcription and reconciliation against the imported v0.2 ledger"
