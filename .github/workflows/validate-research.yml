@@ -16,5 +16,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+      - name: Run provenance validator tests
+        run: python -m unittest tools/test_validate_research.py
       - name: Validate provenance manifests
         run: python tools/validate_research.py
